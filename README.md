@@ -8,7 +8,7 @@ This project was developed as an assignment for the examination of Big Data Mana
 
 The objective of the project is to establish a prototype tool for real-time data analysis. The overall system architecture is depicted in the figure below.
 
-![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/Architecture.png?raw=true =50x50)
+![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/Architecture.png?raw=true)
 
 Let us examine how such tools were utilized within the project:
 
