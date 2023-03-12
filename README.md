@@ -24,7 +24,7 @@ According on the aforementioned descriptions, it can be concluded that the proje
 
 ### [Apache Kafka](https://kafka.apache.org/)
 
-![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalogo.jpg?raw=true)
+<img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalogo.jpg" alt="Alt text" title="Optional title" width="200" height="400">
 
 pache Kafka is an open-source distributed event streaming platform that operates as a publish-subscribe messaging solution. It was specifically designed for real-time data streaming, distributed pipelining, and replaying of data feeds to enable fast and scalable operations. Kafka is utilized by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
 
