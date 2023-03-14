@@ -85,9 +85,9 @@ requiring no internet access (as described in this document) or can be installed
 
 ## Installation and Configuration
 
-<h3 id="kafka">Kafka</h3> 
+ <h3 id="kafka">Kafka</h3> 
 
-[⬆️ GO ON TOP](#table-of-contents)	
+[⬆️ GO ON TOP](#table-of-contents)
 
 **Step 1 — Creating a User for Kafka**
 
@@ -744,6 +744,11 @@ Alternatively, it can be run in the foreground, with the output such as logs bei
 ```bash
 bin/launcher run
 ```
+In order to perform queries the Presto CLI can be used by running the following command:
+
+```bash
+./presto --server 127.0.0.1:8090 --catalog mongodb --schema tbdmproject
+```
 
 While for stopping Presto simply use:
 
@@ -752,6 +757,7 @@ bin/launcher stop
 ```  
 
   <h3 id="jupyter-1">Jupyter Connection</h3>
+  
 	In order to establish a connection towards Presto it is possible to use the *pyhive* library by running the following:
 ```python
 from pyhive import presto
