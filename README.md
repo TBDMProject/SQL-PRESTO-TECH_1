@@ -89,7 +89,6 @@ requiring no internet access (as described in this document) or can be installed
 ## Installation and Configuration
 
 <h3 id="kafka">Kafka</h3> 
-<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
 **Step 1 — Creating a User for Kafka**
 
@@ -314,8 +313,9 @@ At this point, only root or a sudo user can log in as `kafka` by typing in the 
 ```bash
 sudo su - kafka
 ```
-<h3 id="mqtt-dumper">MQTT Dumper</h3>
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
+<h3 id="mqtt-dumper">MQTT Dumper</h3>
 
 ****Requirements****
 
@@ -423,8 +423,9 @@ From the console if you subscribe with a simple consumer messages sent to the br
 ```bash
 $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mqtt.echo --from-beginning
 ```
-<h3 id="mongodb-1">MongoDB</h3>
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
+<h3 id="mongodb-1">MongoDB</h3>
 
 **Step 1 — Installing MongoDB**
 
@@ -532,8 +533,9 @@ MongoDB server version: 4.4.0
 	"ok" : 1
 }
 ```
-<h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
+<h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
 
 ****Mongo db Sink plugin installation****
 
@@ -580,8 +582,9 @@ To delete a connector, you can run:
 ```bash
 curl -X DELETE http://localhost:8083/connectors/<connector-name>
 ```
-<h3 id="presto">Presto</h3>
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
+<h3 id="presto">Presto</h3>
 
 **Installing Presto**
 
@@ -703,11 +706,12 @@ wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.279/presto-
 mv presto-cli-0.279-executable.jar /.../presto/presto-server/presto
 chmod +x presto
 ```
+<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
 
 ## Usage
 
 <h3 id="iot-simulator-1">IoT Simulator</h3>
-<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
 For starting the IoTSimulator run the following command:
 
@@ -737,7 +741,6 @@ $KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.pr
 ```  
 
 <h3 id="presto-1">Presto</h3>
-<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 The installation directory contains the launcher script in `bin/launcher`. Presto can be started as a daemon by running the following:
 
 ```bash
@@ -762,7 +765,6 @@ bin/launcher stop
 ```  
 
 <h3 id="jupyter-1">Jupyter Connection</h3>
-<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 In order to establish a connection towards Presto it is possible to use the *pyhive* library by running the following:
 ```python
 from pyhive import presto
@@ -780,6 +782,7 @@ Then to execute a simple query:
 presto_cur.execute("select * from yourtable")
 records=presto_cur.fetchall()
 ``` 
+<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
 ## Results
 
