@@ -705,9 +705,70 @@ chmod +x presto
 ## Usage
 
   <h3 id="iot-simulator-1">IoT Simulator</h3>
+  	For starting the IoTSimulator run the following command:
+
+```bash
+/.../iot-simulator/docker-compose docker-compose up -d
+```
+Typing **-d** allows to start the IoTSimulator in background, otherwise a log will be shown with the messages as they are being generated.  
+
+
+While for stopping the IoTSimulator use:
+
+```bash
+/.../iot-simulator/docker-compose docker-compose down
+```  
   <h3 id="mqtt-dumper-1">MQTT Dumper</h3>
+  	
+Assuming that Kafka is already running and listening on port 9092, it is necessary to set the following variable.
+
+```bash
+KAFKA_HOME=/.../yourkafkapath
+```
+
+Then start a standalone connector that takes in input a distributed connector that will wait for incoming request via REST API calls.
+
+```bash
+$KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.properties
+```  
+
   <h3 id="presto-1">Presto</h3>
+  	The installation directory contains the launcher script in `bin/launcher`. Presto can be started as a daemon by running the following:
+
+```bash
+bin/launcher start
+```
+
+Alternatively, it can be run in the foreground, with the output such as logs being shown:
+
+```bash
+bin/launcher run
+```
+
+While for stopping Presto simply use:
+
+```bash
+bin/launcher stop
+```  
+
   <h3 id="jupyter-1">Jupyter Connection</h3>
+	In order to establish a connection towards Presto it is possible to use the *pyhive* library by running the following:
+```python
+from pyhive import presto
+
+presto_conn = presto.connect(
+    host='000.000.000.000', #ip address of your virtual machine
+    port=8090, #port on which you installed presto
+    catalog='mongodb',
+    schema='yourschema' #specify the schema in which you are interested in
+)
+presto_cur = presto_conn.cursor()
+```  
+Then to execute a simple query:
+```bash
+presto_cur.execute("select * from yourtable")
+records=presto_cur.fetchall()
+``` 
 
 ## Demo
 
