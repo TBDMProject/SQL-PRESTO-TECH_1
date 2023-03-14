@@ -422,6 +422,115 @@ $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --to
 
 <br /> 
   <h3 id="mongodb-1">MongoDB</h3>
+
+**Step 1 — Installing MongoDB**
+
+To start, import the public GPG key for the latest stable version of MongoDB by running the following command.
+
+```bash
+curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+```
+
+cURL is a command line tool available on many operating systems used to transfer data. It reads whatever data is stored at the URL passed to it and prints the content to the system’s output. In the following example, cURL prints the content of the GPG key file and then pipes it into the following `sudo apt-key add -` command, thereby adding the GPG key to your list of trusted keys.
+
+Also, note that this `curl` command uses the options `-fsSL` which, together, essentially tell cURL to fail silently. This means that if for some reason cURL isn’t able to contact the GPG server or the GPG server is down, it won’t accidentally add the resulting error code to your list of trusted keys.
+
+This command will return `OK` if the key was added successfully:
+
+```bash
+Output
+OK
+```
+
+To double check that the key was added correctly, run the following command:
+
+```bash
+apt-key list
+```
+
+This will return the MongoDB key somewhere in the output:
+
+```bash
+Output
+/etc/apt/trusted.gpg
+--------------------
+pub   rsa4096 2019-05-28 [SC] [expires: 2024-05-26]
+      2069 1EEC 3521 6C63 CAF6  6CE1 6564 08E3 90CF B1F5
+uid           [ unknown] MongoDB 4.4 Release Signing Key <packaging@mongodb.com>
+. . .
+```
+
+At this point, the APT installation still doesn’t know where to find the `mongodb-org` package required to install the latest version of MongoDB.
+
+```bash
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+```
+
+This single line tells APT everything it needs to know about what the source is and where to find it:
+
+- `deb`: This means that the source entry references a regular Debian architecture. In other cases, this part of the line might read `deb-src`, which means the source entry represents a Debian distribution’s source code.
+- `[ arch=amd64,arm64 ]`: This specifies which architectures the APT data should be downloaded to. In this case, it specifies the `amd64` and `arm64` architectures.
+- `https://repo.mongodb.org/apt/ubuntu`: This is a URI representing the location where the APT data can be found. In this case, the URI points to the HTTPS address where the official MongoDB repository is located.
+- `focal/mongodb-org/4.4`: Ubuntu repositories can contain several different releases. This specifies that you only want version `4.4` of the `mongodb-org` package available for the `focal` release of Ubuntu (“Focal Fossa” being the code name of Ubuntu 20.04).
+- `multiverse`: This part points APT to one of the four main Ubuntu repositories. In this case, it’s pointing to the `[multiverse` repository](https://help.ubuntu.com/community/Repositories#Multiverse).
+
+After running this command, update your server’s local package index so APT knows where to find the `mongodb-org` package:
+
+```bash
+sudo apt update
+```
+
+Following that, install MongoDB running:
+
+```bash
+sudo apt install mongodb-org
+```
+
+**Step 2 — Starting the MongoDB Service and Testing the Database**
+
+Run the following `systemctl` command to start the MongoDB service:
+
+```bash
+sudo systemctl start mongod.service
+```
+
+Then check the service’s status.
+
+```bash
+sudo systemctl status mongod
+```
+
+After confirming that the service is running as expected, enable the MongoDB service to start up at boot:
+
+```bash
+sudo systemctl enable mongod
+```
+
+Verify that the database is operational by connecting to the database server and executing a diagnostic command.
+
+```bash
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+```
+
+`connectionStatus` will check and return the status of the database connection
+
+```bash
+
+Output
+MongoDB shell version v4.4.0
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("1dc7d67a-0af5-4394-b9c4-8a6db3ff7e64") }
+MongoDB server version: 4.4.0
+{
+	"authInfo" : {
+		"authenticatedUsers" : [ ],
+		"authenticatedUserRoles" : [ ]
+	},
+	"ok" : 1
+}
+```
+
+<br />  
   <h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
   <h3 id="presto">Presto</h3>
   
