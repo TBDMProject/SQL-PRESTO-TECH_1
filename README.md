@@ -2,7 +2,7 @@
 
 This project was developed as an assignment for the examination of Big Data Management Technologies, a course in the master's degree programme in computer science at the University of Camerino.
 
-**Table of Contents:**
+### Table of Contents:
 1. [Introduction](#introduction)
 1. [Technologies](#technologies)  
 1. [Prerequisites](#prerequisites)
@@ -85,7 +85,9 @@ requiring no internet access (as described in this document) or can be installed
 
 ## Installation and Configuration
 
-  <h3 id="kafka">Kafka</h3>
+<h3 id="kafka">Kafka</h3> 
+
+[⬆️ GO ON TOP](#table-of-contents)	
 
 **Step 1 — Creating a User for Kafka**
 
