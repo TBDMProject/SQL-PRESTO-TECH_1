@@ -12,11 +12,11 @@ The objective of the project is to establish a prototype tool for real-time data
 
 Let us examine how such tools were utilized within the project:
 
-- **IoT Message Generator:** è un simulatore di messaggi IoT. Il generatore in questione quindi è stato utilizzato per simulare la creazione dei messaggi da dispositivi IoT. Questi messaggi vengono tutti indirizzati sotto un unico topic
-- **Apache Kafka:** è stato utilizzato per leggere in real time i messaggi provenienti dall’IoT Simulator e fare allo stesso tempo lo storage di questi messaggi all’interno di un database, che come possiamo vedere è MongoDB.
-- **MongoDB:** database non relazionale document oriented scelto per fare lo storaging dei messaggi streammati da kafka in real time
-- **Presto:** è lo strumento che permette di express the analytics via standard SQL queries su di un database NoSQL(MongoDB in questo caso)
-- **Jupyter:** utilizzato per creare un notebook per produrre analisi sui dati raccolti e generare grafici per una migliore visualizzazione e interpretazione dei dati
+- **IoT Message Generator:** is an IoT message simulator. The generator in question was therefore used to simulate the creation of messages from IoT devices. These messages are all addressed under one topic
+- **Apache Kafka:** was used to read messages from the IoT Simulator in real time and at the same time store these messages within a database, which as we can see is MongoDB.
+- **MongoDB:** non-relational document oriented database chosen to do the storing of messages streamed by kafka in real time
+- **Presto:** is the tool to express the analytics via standard SQL queries on a NoSQL database (MongoDB in this case)
+- **Jupyter:** used to create a notebook to produce analysis on collected data and generate graphs for better visualisation and interpretation of data
 
 According on the aforementioned descriptions, it can be concluded that the project **objectives** consist of the following areas: publishing messages to Kafka on a predetermined topic, storing data in a NoSQL database, configuring Presto to establish a connection with the database, and utilizing Jupyter to generate a notebook with standard visualization and analysis of the messages
 
@@ -27,7 +27,7 @@ According on the aforementioned descriptions, it can be concluded that the proje
   <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalog.png" alt="Alt text" title="Optional title" width="350" height="300">
 </p>
 
-pache Kafka is an open-source distributed event streaming platform that operates as a publish-subscribe messaging solution. It was specifically designed for real-time data streaming, distributed pipelining, and replaying of data feeds to enable fast and scalable operations. Kafka is utilized by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+Apache Kafka is an open-source distributed event streaming platform that operates as a publish-subscribe messaging solution. It was specifically designed for real-time data streaming, distributed pipelining, and replaying of data feeds to enable fast and scalable operations. Kafka is utilized by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
 
 This broker-based solution stores data streams as records within a cluster of servers. Kafka servers can extend across multiple data processing centers and provide data persistence by storing streams of records (messages) across multiple server instances in topics.
 
