@@ -532,6 +532,54 @@ MongoDB server version: 4.4.0
 
 <br />  
   <h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
+
+****Mongo db Sink plugin installation****
+
+Download source package from:
+
+> [https://www.confluent.io/hub/mongodb/kafka-connect-mongodb](https://www.confluent.io/hub/mongodb/kafka-connect-mongodb)
+> 
+
+Now open the file and **copy** the **.jar** file from the **/lib folder** and move it inside the folder of the virtual machine `/.../kafka/plugins/mongodb-connector` using a file manager ssh(es. CyberDuck).
+
+To run the connector, define a configuration as JSON file to submit to the worker connector. Save it as `~/mongodb_connect.json`
+
+```bash
+{
+   "name":"mongodb-sink",
+   "config":{
+      "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":1,
+      "topics":"mqtt.echo",
+      "connection.uri":"mongodb://localhost:27017/database?retryWrites=true&w=majority",
+      "database":"tbdmproject",
+      "collection":"iotsimulator",
+      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable":"false"
+   }
+}
+```
+
+Then submit to the worker:
+
+```bash
+curl -s -X POST -H 'Content-Type: application/json' http://localhost:8083/connectors -d @/home/mongodb_connect.json
+```
+
+Verify that it is working:
+
+```bash
+curl -s "http://localhost:8083/connectors"
+```
+
+To delete a connector, you can run:
+
+```bash
+curl -X DELETE http://localhost:8083/connectors/<connector-name>
+```
+
+<br />  
   <h3 id="presto">Presto</h3>
   
 ## Usage
