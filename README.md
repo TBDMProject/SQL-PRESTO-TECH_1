@@ -80,6 +80,7 @@ requiring no internet access (as described in this document) or can be installed
 * `Ubuntu O.S. version 20.04`
 * `Java Runtime Environment(JRE), recommended OpenJDK 11`
 * `Docker installation`
+* `Python v.3`
 * `git clone https://github.com/massimocallisto/iot-simulator.git`
 
 ## Installation and Configuration
@@ -310,8 +311,7 @@ At this point, only root or a sudo user can log in as `kafka` by typing in the 
 sudo su - kafka
 ```
 
-<br />  
-  <h3 id="mqtt-dumper">MQTT Dumper</h3>
+<h3 id="mqtt-dumper">MQTT Dumper</h3>
 
 ****Requirements****
 
@@ -420,8 +420,7 @@ From the console if you subscribe with a simple consumer messages sent to the br
 $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mqtt.echo --from-beginning
 ```
 
-<br /> 
-  <h3 id="mongodb-1">MongoDB</h3>
+<h3 id="mongodb-1">MongoDB</h3>
 
 **Step 1 — Installing MongoDB**
 
@@ -530,8 +529,7 @@ MongoDB server version: 4.4.0
 }
 ```
 
-<br />  
-  <h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
+<h3 id="mongodb-sink-connector">MongoDB Sink Connector</h3>
 
 ****Mongo db Sink plugin installation****
 
@@ -579,9 +577,129 @@ To delete a connector, you can run:
 curl -X DELETE http://localhost:8083/connectors/<connector-name>
 ```
 
-<br />  
-  <h3 id="presto">Presto</h3>
-  
+<h3 id="presto">Presto</h3>
+
+**Installing Presto**
+
+Download the Presto server tarball
+
+```bash
+mkdir /.../presto && cd /.../presto
+wget https://repo1.maven.org/maven2/com/facebook/presto/presto-server/0.279/presto-server-0.279.tar.gz
+```
+
+Unpack it. The tarball will contain a single top-level directory, `presto-server-0.278.1`, which we will call the *installation* directory.
+
+```bash
+tar -xzf presto-server-0.279.tar.gz
+mv presto-server-0.279 presto-server
+```
+
+Presto needs a *data* directory for storing logs, etc. It is recommended to create a data directory outside of the installation directory, which allows it to be easily preserved when upgrading Presto.
+
+```bash
+mkdir /.../presto/presto-data
+```
+
+**Configuring Presto**
+
+Create an `etc` directory inside the installation directory. This will hold the following configuration:
+
+- Node Properties: environmental configuration specific to each node
+- JVM Config: command line options for the Java Virtual Machine
+- Config Properties: configuration for the Presto server. See the **[Properties Reference](https://prestodb.io/docs/current/admin/properties.html)** for available configuration properties.
+- Catalog Properties: configuration for **[Connectors](https://prestodb.io/docs/current/connector.html)** (data sources). The available catalog configuration properties for a connector are described in the respective connector documentation.
+
+**Node Properties**
+
+The node properties file, `etc/node.properties`, contains configuration specific to each node.
+
+```bash
+sudo nano etc/node.properties
+```
+
+And paste:
+
+```bash
+node.environment=production
+node.id=ffffffff-ffff-ffff-ffff-ffffffffffff				
+node.data-dir=/home/presto/presto-data
+```
+
+Change the node.id parameter with the uuid taken from MongoDB visible using the command:
+
+```bash
+mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+```
+
+**JVM Config**
+
+The JVM config file, `etc/jvm.config`, contains a list of command line options used for launching the Java Virtual Machine.
+
+The following provides a good starting point for creating `etc/jvm.config`
+
+```bash
+-server
+-Djdk.attach.allowAttachSelf=true
+-Xmx16G
+-XX:+UseG1GC
+-XX:G1HeapRegionSize=32M
+-XX:+UseGCOverheadLimit
+-XX:+ExplicitGCInvokesConcurrent
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:+ExitOnOutOfMemoryError
+```
+
+**Config Properties**
+
+The config properties file, `etc/config.properties`, contains the configuration for the Presto server. Every Presto server can function as both a coordinator and a worker, but dedicating a single machine to only perform coordination work provides the best performance on larger clusters. Use this configuration:
+
+```bash
+coordinator=true
+node-scheduler.include-coordinator=true
+http-server.http.port=8090
+query.max-memory=5GB
+query.max-memory-per-node=1GB
+discovery-server.enabled=true
+discovery.uri=http://127.0.0.1:8090
+```
+
+**Log Levels**
+
+The optional log levels file, `etc/log.properties`, allows setting the minimum log level for named logger hierarchies. Every logger has a name, which is typically the fully qualified name of the class that uses the logger. Loggers have a hierarchy based on the dots in the name (like Java packages). For example, consider the following log levels file:
+
+```bash
+com.facebook.presto=INFO
+```
+**Catalog Properties**
+
+Presto accesses data via *connectors*, which are mounted in catalogs. The connector provides all of the schemas and tables inside of the catalog.
+
+Catalogs are registered by creating a catalog properties file in the `etc/catalog`directory. For example, create `etc/catalog/jmx.properties`
+
+So **create the directory to attach later the mongo db connector**
+
+****MongoDB Connector****
+
+This connector allows the use of MongoDB collections as tables in Presto.
+
+To configure the MongoDB connector, create a catalog properties file `etc/catalog/mongodb.properties` with the following contents, replacing the properties as appropriate:
+
+```bash
+connector.name=mongodb
+mongodb.seeds=127.0.0.1:27017
+```
+
+****Command Line Interface****
+
+Download [presto-cli-0.279-executable.jar](https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.279/presto-cli-0.279-executable.jar), rename it to `presto`, make it executable with `chmod +x`, then run it:
+
+```bash
+wget https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/0.279/presto-cli-0.279-executable.jar
+mv presto-cli-0.279-executable.jar /.../presto/presto-server/presto
+chmod +x presto
+```
+
 ## Usage
 
   <h3 id="iot-simulator-1">IoT Simulator</h3>
