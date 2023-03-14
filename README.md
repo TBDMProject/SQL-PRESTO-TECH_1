@@ -1,6 +1,6 @@
-# SQL-PRESTO-TECH
+# 📊 SQL-PRESTO-TECH
 
-This project was developed as an assignment for the examination of Big Data Management Technologies, a course in the master's degree programme in computer science at the University of Camerino.
+This project was developed as an assignment for the examination of **Big Data Management Technologies**, a course in the master's degree programme in *Computer Science at the University of Camerino.* 
 
 ### Table of Contents:
 1. [Introduction](#introduction)
@@ -28,19 +28,19 @@ This project was developed as an assignment for the examination of Big Data Mana
 
 ## Introduction
 
-The objective of the project is to establish a prototype tool for real-time data analysis. The overall system architecture is depicted in the figure below.
+The objective of the project is to establish a prototype tool for real-time data analysis. The data to be analyzed comes from an IoT simulator that has the task of simulating the generation of messages from real IoT devices. After that, the data goes through a streaming platform, Kafka, and then is stored within a NoSQL database. Once the data is stored, we extract it through Presto and its SQL mask and then analyze it within Jupyter Notebook thanks to the various data analytics libraries available. 
+
+The overall system architecture is depicted in the figure below.
 
 ![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/Architecture.png?raw=true)
 
 Let us examine how such tools were utilized within the project:
 
 - **IoT Message Generator:** is an IoT message simulator. The generator in question was therefore used to simulate the creation of messages from IoT devices. These messages are all addressed under one topic
-- **Apache Kafka:** was used to read messages from the IoT Simulator in real time and at the same time store these messages within a database, which as we can see is MongoDB.
-- **MongoDB:** non-relational document oriented database chosen to do the storing of messages streamed by kafka in real time
-- **Presto:** is the tool to express the analytics via standard SQL queries on a NoSQL database (MongoDB in this case)
-- **Jupyter:** used to create a notebook to produce analysis on collected data and generate graphs for better visualisation and interpretation of data
-
-According on the aforementioned descriptions, it can be concluded that the project **objectives** consist of the following areas: publishing messages to Kafka on a predetermined topic, storing data in a NoSQL database, configuring Presto to establish a connection with the database, and utilizing Jupyter to generate a notebook with standard visualization and analysis of the messages
+- **Apache Kafka:** is used for real-time reading messages from the IoT Simulator and at the same time for storing these messages within a database, which as we can see is MongoDB.
+- **MongoDB:** non-relational document oriented database chosen for performing the storaging of messages streamed by kafka in real time
+- **Presto:** is the tool used to retreive data via standard SQL queries on a NoSQL database
+- **Jupyter:** used to create a notebook to produce analytics on collected data and generate graphs for better visualisation and interpretation of them
 
 ## Technologies
 
@@ -49,10 +49,7 @@ According on the aforementioned descriptions, it can be concluded that the proje
   <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalog.png" alt="Alt text" title="Kafka" width="150" height="150">
 </p>
 
-Apache Kafka is an open-source distributed event streaming platform that operates as a publish-subscribe messaging solution. It was specifically designed for real-time data streaming, distributed pipelining, and replaying of data feeds to enable fast and scalable operations. Kafka is utilized by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
-
-This broker-based solution stores data streams as records within a cluster of servers. Kafka servers can extend across multiple data processing centers and provide data persistence by storing streams of records (messages) across multiple server instances in topics.
-
+Apache Kafka is a publish-subscribe messaging solution that functions as an open-source distributed event streaming platform. Its design specifically to real-time data streaming, distributed pipelining, and data feed replaying to facilitate fast and scalable operations. Kafka is widely used by numerous companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications. This solution is broker-based and stores data streams as records in a server cluster. Kafka servers can be deployed across multiple data processing centers and offer data persistence by storing message streams across several server instances in topics.
 
 ### [MongoDB](https://www.mongodb.com/)
 
@@ -68,7 +65,7 @@ MongoDB is an open source NoSQL database that uses a non-relational, document-or
   <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/Presto_logo.png" alt="Alt text" title="Optional title" width="280" height="110">
 </p>
 
-Presto (o PrestoDB) is a distributed SQL query engine that is open-source and optimized for high-speed analytic queries of data of any size. It supports relational and non-relational data sources, such as Amazon S3, Hadoop Distributed File System (HDFS), and MongoDB. With Presto, data can be queried directly without the need to transfer it to a separate analytics system. It is widely used by major companies like Facebook and Netflix, executing parallel queries over a pure memory-based architecture for fast results.
+Presto (o PrestoDB) is a distributed SQL query engine that is open-source and optimized for high-speed analytic queries of data of any size. It supports relational and non-relational data sources, such as Amazon S3, Hadoop Distributed File System (HDFS), and MongoDB. With Presto, data can be queried directly without the need to transfer it to a separate analytics system.
 
 ### [Jupyter Notebook](https://jupyter.org/)
 
@@ -76,14 +73,13 @@ Presto (o PrestoDB) is a distributed SQL query engine that is open-source and op
   <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/jupyter_logo.png" alt="Alt text" title="Optional title" width="180" height="150">
 </p>
 
-The Jupyter Notebook App is a server-client application that allows editing and running notebook documents via a web browser. The Jupyter Notebook App can be executed on a local desktop
-requiring no internet access (as described in this document) or can be installed on a remote server and accessed through the internet.
+The Jupyter Notebook App is a server-client application that allows editing and running notebook documents via a web browser. The Jupyter Notebook App can be executed on a local desktop requiring no internet access (as described in this document) or can be installed on a remote server and accessed through the internet.
 
 ## Prerequisites
-* `Ubuntu O.S. version 20.04`
+* `Ubuntu 20.04 LTS (Focal Fossa)`
 * `Java Runtime Environment(JRE), recommended OpenJDK 11`
-* `Docker installation`
-* `Python v.3`
+* `Docker`
+* `Python 3`
 * `git clone https://github.com/massimocallisto/iot-simulator.git`
 
 ## Installation and Configuration
@@ -93,8 +89,7 @@ requiring no internet access (as described in this document) or can be installed
 **Step 1 — Creating a User for Kafka**
 
 Since Kafka can handle requests over a network, the first needed step is to create a dedicated user for the service.  
-This minimizes damage to your Ubuntu machine in case that someone compromises the Kafka server.  
-Now let's create a dedicated *`kafka`* user.
+This minimizes damage to your Ubuntu machine in case that someone compromises the Kafka server. Now let's create a dedicated *`kafka`* user.
 
 Logged in as your non-root sudo user, create a user called *`kafka`*:
 
@@ -146,15 +141,13 @@ tar -xvzf ~/Downloads/kafka.tgz --strip 1
 
 **Step 3 — Configuring the Kafka Server**
 
-Kafka’s configuration options are specified in `server.properties`.  
-Open this file with `nano` or a generic editor:
+Kafka’s configuration options are specified in `server.properties`. Open this file with `nano` or a generic editor:
 
 ```bash
 nano ~/kafka/config/server.properties
 ```
 
-First, add a setting that allows to delete Kafka topics.  
-Add the following to the bottom of the file:
+First, add a setting that allows to delete Kafka topics. Add the following to the bottom of the file:
 
 ```bash
 delete.topic.enable = true
@@ -166,8 +159,7 @@ Then, change the directory where the Kafka logs are stored by modifying the `lo
 log.dirs=/home/kafka/logs
 ```
 
-Save and close the file.  
-Now that kafka is configured Kafka, the next step is to create systemd unit files for running and enabling the Kafka server on startup.
+Save and close the file. Now that kafka is configured, the next step is to create systemd unit files for running and enabling the Kafka server on startup.
 
 **Step 4 — Creating Systemd Unit Files and Starting the Kafka Server**
 
@@ -245,8 +237,7 @@ To ensure that the server has started successfully, check the journal logs for t
 sudo systemctl status kafka
 ```
 
-Now the `kafka` service is active and running.  
-But if when rebooted the server, Kafka will not restart automatically.  
+Now the `kafka` service is active and running. But if when rebooted the server, Kafka will not restart automatically.  
 To enable the `kafka` service on server boot, run the following commands:
 
 ```bash
@@ -254,8 +245,7 @@ sudo systemctl enable zookeeper
 sudo systemctl enable kafka
 ```
 
-In this step, the `kafka` and `zookeeper` services have been started and enabled.  
-Now let's test if the kafka installation has been successfull.
+In this step, the `kafka` and `zookeeper` services have been started and enabled. Now let's test if the kafka installation has been successfull.
 
 **Step 5 — Testing the Kafka Installation**
 
@@ -319,7 +309,7 @@ sudo su - kafka
 
 ****Requirements****
 
-Install also this package (JSON processor):
+Install this package (JSON processor):
 
 ```bash
 sudo apt-get install jq
@@ -435,7 +425,7 @@ To start, import the public GPG key for the latest stable version of MongoDB by 
 curl -fsSL https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
 ```
 
-cURL is a command line tool available on many operating systems used to transfer data. It reads whatever data is stored at the URL passed to it and prints the content to the system’s output. In the following example, cURL prints the content of the GPG key file and then pipes it into the following `sudo apt-key add -` command, thereby adding the GPG key to your list of trusted keys.
+curl is a command line tool available on many operating systems used to transfer data. It reads whatever data is stored at the URL passed to it and prints the content to the system’s output. In the following example, cURL prints the content of the GPG key file and then pipes it into the following `sudo apt-key add -` command, thereby adding the GPG key to your list of trusted keys.
 
 Also, note that this `curl` command uses the options `-fsSL` which, together, essentially tell cURL to fail silently. This means that if for some reason cURL isn’t able to contact the GPG server or the GPG server is down, it won’t accidentally add the resulting error code to your list of trusted keys.
 
@@ -765,6 +755,7 @@ bin/launcher stop
 ```  
 
 <h3 id="jupyter-1">Jupyter Connection</h3>
+
 In order to establish a connection towards Presto it is possible to use the *pyhive* library by running the following:
 ```python
 from pyhive import presto
@@ -786,6 +777,9 @@ records=presto_cur.fetchall()
 
 ## Results
 
+This section displays the results obtained in terms of the user's ability to visualize and analyze data through the use of graphs.
+
+In order to represent data through graphs Plotly has been used, obviously this library provides the possibility to create numerous types of graphs, some examples are:
 <h3 id="linechart-1">Line Chart</h3>
 
 The following graph shows the temperature measured by a device over a set period of time:  
