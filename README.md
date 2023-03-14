@@ -23,8 +23,9 @@ According on the aforementioned descriptions, it can be concluded that the proje
 ## Technologies
 
 ### [Apache Kafka](https://kafka.apache.org/)
-
-<img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalogo.jpg" alt="Alt text" title="Optional title" width="200" height="400">
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/kafkalog.png" alt="Alt text" title="Optional title" width="350" height="300">
+</p>
 
 pache Kafka is an open-source distributed event streaming platform that operates as a publish-subscribe messaging solution. It was specifically designed for real-time data streaming, distributed pipelining, and replaying of data feeds to enable fast and scalable operations. Kafka is utilized by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
 
@@ -33,19 +34,25 @@ This broker-based solution stores data streams as records within a cluster of se
 
 ### [MongoDB](https://www.mongodb.com/)
 
-![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/MongoDB-Logo.jpg?raw=true)
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/MongoDB-Logo.png" alt="Alt text" title="Optional title" width="390" height="300">
+</p>
 
 MongoDB is an open source NoSQL database that uses a non-relational, document-oriented data model. It stores data objects in collections and documents, rather than in the tables and rows used in relational databases. MongoDB uses the document storage format BSON, which is a binary form of JSON. Documents consist of key-value pairs, which can include various data types such as other documents, arrays and document arrays. The structure of a document can be changed simply by adding or deleting fields, and documents can define a primary key as a unique identifier.
 
 ### [Presto](https://prestodb.io/)
 
-![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/logo-presto-color.svg?raw=true)
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/Presto_logo.png" alt="Alt text" title="Optional title" width="550" height="300">
+</p>
 
 Presto (o PrestoDB) is a distributed SQL query engine that is open-source and optimized for high-speed analytic queries of data of any size. It supports relational and non-relational data sources, such as Amazon S3, Hadoop Distributed File System (HDFS), and MongoDB. With Presto, data can be queried directly without the need to transfer it to a separate analytics system. It is widely used by major companies like Facebook and Netflix, executing parallel queries over a pure memory-based architecture for fast results.
 
 ### [Jupyter Notebook](https://jupyter.org/)
 
-![alt text](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/jupyter-logo.svg?raw=true)
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/daniele-pelosi-images/jupyter-logo.svg" alt="Alt text" title="Optional title" width="800" height="240">
+</p>
 
 The Jupyter Notebook App is a server-client application that allows editing and running notebook documents via a web browser. The Jupyter Notebook App can be executed on a local desktop
 requiring no internet access (as described in this document) or can be installed on a remote server and accessed through the internet.
