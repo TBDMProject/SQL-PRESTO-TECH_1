@@ -4,8 +4,10 @@ This project was developed as an assignment for the examination of Big Data Mana
 
 ### Table of Contents
 [Introduction](#introduction)
+<br>
 [Technologies](#technologies)  
-[Prerequisites](#prerequisites)  
+[Prerequisites](#prerequisites)
+<br>
 [Installation & Configuration](#installation-and-configuration)  
 [Usage](#usage)  
 [Demo](#demo)  
