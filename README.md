@@ -3,6 +3,15 @@
 This project was developed as an assignment for the examination of Big Data Management Technologies, a course in the master's degree programme in computer science at the University of Camerino.
 
 ### Table of Contents
+[Introduction](#introduction)
+[Technologies](#technologies)  
+[Prerequisites](#prerequisites)  
+[Installation & Configuration](#installation-and-configuration)  
+[Usage](#usage)  
+[Demo](#demo)  
+[License](#license)
+<br>
+[Contact Information](#contact-information) 
 
 ## Introduction
 
@@ -58,10 +67,12 @@ The Jupyter Notebook App is a server-client application that allows editing and 
 requiring no internet access (as described in this document) or can be installed on a remote server and accessed through the internet.
 
 ## Prerequisites
+* `Ubuntu O.S. version 20.04`
+* `Java Runtime Environment(JRE), recommended OpenJDK 11`
+* `Docker installation`
+* `git clone https://github.com/massimocallisto/iot-simulator.git`
 
-sta sul wiki
-
-## Installation & Configuration
+## Installation and Configuration
 
 sta sul wiki
 
