@@ -17,7 +17,10 @@ This project was developed as an assignment for the examination of Big Data Mana
     1. [MQTT Dumper](#mqtt-dumper-1)
     1. [Presto](#presto-1)
     1. [Jupyter Connection](#jupyter-1)
-1. [Demo](#demo)  
+1. [Results](#results)  
+    1. [Line Chart](#linechart-1)
+    1. [Bar Chart](#barchart-1)
+    1. [Pie Chart](#piechart-1)
 1. [License](#license)
 1. [Contact Information](#contact-information) 
 
@@ -778,9 +781,27 @@ presto_cur.execute("select * from yourtable")
 records=presto_cur.fetchall()
 ``` 
 
-## Demo
+## Results
 
-mettere screen
+<h3 id="linechart-1">Line Chart</h3>
+The following graph shows the temperature measured by a device over a set period of time:
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/images/linechart.png?raw=true" alt="alt text" width="700"/>
+</p>  
+
+<h3 id="barchart-1">Bar Chart</h3>
+This bar chart shows the average of the temperatures measured by each device:
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/images/barchart.png?raw=true" alt="alt text" width="700"/>
+</p>  
+
+<h3 id="piechart-1">Pie Chart</h3>
+While this graph shows the distribution of the measurements based on the device type:
+<p align="center">
+  <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/images/piechart.png?raw=true" alt="alt text" width="700"/>
+</p>
+
+<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
 ## License
 
