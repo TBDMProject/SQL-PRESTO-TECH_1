@@ -832,6 +832,6 @@ THE SOFTWARE.
 
 | Contact | Mail | Contact Number |
 | --- | --- | --- |
-| Avdil Mehmeti | avdil.mehmeti@studenti.unicam.it | 3333333 |
-| Daniele Pelosi | daniele.pelosi@studenti.unicam.it | 33333333 |
-| Kiran Jose Puthussery | kiran.puthussery@studenti.unicam.it | 33333333 |
+| Avdil Mehmeti | avdil.mehmeti@studenti.unicam.it | +39 3270367469 |
+| Daniele Pelosi | daniele.pelosi@studenti.unicam.it | +39 3313981477 |
+| Kiran Jose Puthussery | kiran.puthussery@studenti.unicam.it | +39 3773905766‬ |
