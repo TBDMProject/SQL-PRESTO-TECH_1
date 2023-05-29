@@ -28,7 +28,10 @@ This project was developed as an assignment for the examination of **Big Data Ma
 
 ## Introduction
 
-The objective of the project is to establish a prototype tool for real-time data analysis. The data to be analyzed comes from an IoT simulator that has the task of simulating the generation of messages from real IoT devices. After that, the data goes through a streaming platform, Kafka, and then is stored within a NoSQL database. Once the data is stored, we extract it through Presto and its SQL mask and then analyze it within Jupyter Notebook thanks to the various data analytics libraries available. 
+The objective of the project is to establish a prototype tool for real-time data analysis. The data to be analyzed comes from an IoT simulator that has the task of simulating the generation of messages from real IoT devices, then is processed through the streaming platform Kafka.
+To achieve the project's objective, two different approaches have been implemented:
+- **First approach**: In this approach, the incoming data is processed by Kafka and directly stored in a NoSQL database. Subsequently, the data is extracted using Presto for further processing in a Jupyter Notebook. Since the data is still raw at this stage, it needs to be flattened before it can be used for analytics operations. To achieve this, a new collection is created in the NoSQL database, which is then combined with the original collection to enable analytics operations.
+- **Second approach**: This approach focuses more on real-time data analytics. The data flowing into Kafka is processed using the Kafka Stream API, making it analytics-ready. The processed data is then stored in the NoSQL database and can be analyzed using a Jupyter Notebook.
 
 The overall system architecture is depicted in the figure below.
 
@@ -50,6 +53,7 @@ Let us examine how such tools were utilized within the project:
 </p>
 
 Apache Kafka is a publish-subscribe messaging solution that functions as an open-source distributed event streaming platform. Its design specifically to real-time data streaming, distributed pipelining, and data feed replaying to facilitate fast and scalable operations. Kafka is widely used by numerous companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications. This solution is broker-based and stores data streams as records in a server cluster. Kafka servers can be deployed across multiple data processing centers and offer data persistence by storing message streams across several server instances in topics.
+One of the key features of Kafka is its ability to process data in real-time using the Kafka Streams API. This API simplifies the development of real-time streaming applications by providing high-level abstractions and stream processing primitives. With the Kafka Streams API, developers can perform various operations on the data streams, such as filtering, transforming, aggregating, and joining, to enable real-time analytics and processing.
 
 ### [MongoDB](https://www.mongodb.com/)
 
@@ -78,6 +82,7 @@ The Jupyter Notebook App is a server-client application that allows editing and 
 ## Prerequisites
 * `Ubuntu 20.04 LTS (Focal Fossa)`
 * `Java Runtime Environment(JRE), recommended OpenJDK 11`
+* `Apache Maven 3.6.3`
 * `Docker`
 * `Python 3`
 * `git clone https://github.com/massimocallisto/iot-simulator.git`
@@ -536,29 +541,14 @@ Download source package from:
 
 Now open the file and **copy** the **.jar** file from the **/lib folder** and move it inside the folder of the virtual machine `/.../kafka/plugins/mongodb-connector` using a file manager ssh(es. CyberDuck).
 
-To run the connector, define a configuration as JSON file to submit to the worker connector. Save it as `~/mongodb_connect.json`
+To run the connector, it is necessary to define three different configurations as JSON files to submit to the worker connector. 
+- One configuration is dedicated to the first approach solution [(See File)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/main/MongoDBConnectors/FirstApproach/mongodb_connect.json)
+- The second approach solution needs two different configurations to run properly [(See files)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/tree/main/MongoDBConnectors/SecondApproach)
+
+Then for each configuration submit to the worker:
 
 ```bash
-{
-   "name":"mongodb-sink",
-   "config":{
-      "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
-      "tasks.max":1,
-      "topics":"mqtt.echo",
-      "connection.uri":"mongodb://localhost:27017/database?retryWrites=true&w=majority",
-      "database":"tbdmproject",
-      "collection":"iotsimulator",
-      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
-      "value.converter":"org.apache.kafka.connect.json.JsonConverter",
-      "value.converter.schemas.enable":"false"
-   }
-}
-```
-
-Then submit to the worker:
-
-```bash
-curl -s -X POST -H 'Content-Type: application/json' http://localhost:8083/connectors -d @/home/mongodb_connect.json
+curl -s -X POST -H 'Content-Type: application/json' http://localhost:8083/connectors -d @/home/your_configuration_name.json
 ```
 
 Verify that it is working:
@@ -777,7 +767,7 @@ records=presto_cur.fetchall()
 
 ## Results
 
-This section displays the results obtained in terms of the user's ability to visualize and analyze data through the use of graphs.
+In this section, we present samples of the generated graphs and delve into the distinctions between the two adopted approaches.
 
 In order to represent data through graphs Plotly has been used, obviously this library provides the possibility to create numerous types of graphs, some examples are:
 <h3 id="linechart-1">Line Chart</h3>
@@ -800,6 +790,8 @@ While this graph shows the distribution of the measurements based on the device 
 <p align="center">
   <img src="https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/images/piechart.png?raw=true" alt="alt text" width="850"/>
 </p>
+
+As for the reaching of the objective, while the results achieved with both approaches may appear similar or even identical, they are fundamentally different in nature. The primary differentiating factor lies in their performance characteristics, with the first approach exhibiting significantly slower processing speeds compared to the second approach. This performance discrepancy arises due to the unique capabilities of the second approach, which leverages the Kafka Streams API to enable real-time data analytics. In contrast, the first approach relies on a series of non-optimized operations to achieve its objectives.
 
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
