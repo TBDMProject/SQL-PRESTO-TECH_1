@@ -1,0 +1,14 @@
+{
+   "name":"mongodb-sink",
+   "config":{
+      "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+      "tasks.max":1,
+      "topics":"mqtt.echo",
+      "connection.uri":"mongodb://localhost:27017/database?retryWrites=true&w=majority",
+      "database":"tbdmproject",
+      "collection":"iotsimulator",
+      "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+      "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+      "value.converter.schemas.enable":"false"
+   }
+}
