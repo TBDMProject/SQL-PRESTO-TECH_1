@@ -378,29 +378,7 @@ curl localhost:8083/connectors
 
 ****Run MQTT connector****
 
-To run the connector, define a configuration as JSON file to submit to the worker connector. Save it as `~/mqtt_connect.json`
-
-```json
-{
-  "name": "mqtt-source",
-  "config": {
-    "connector.class": "io.confluent.connect.mqtt.MqttSourceConnector",
-    "tasks.max": "1",
-    "mqtt.server.uri": "tcp://localhost:1883",
-    "mqtt.topics": "#",
-    "kafka.topic": "mqtt.echo",
-    "value.converter":"org.apache.kafka.connect.converters.ByteArrayConverter",
-    "key.converter":"org.apache.kafka.connect.storage.StringConverter",
-    "key.converter.schemas.enable" : "false",
-    "value.converter.schemas.enable" : "false",
-    "confluent.topic.bootstrap.servers": "localhost:9092",
-    "confluent.topic.replication.factor": "1",
-    "confluent.license": ""
-  }
-}
-```
-
-Then submit to the worker:
+To be able to run the connector first you must have downloaded it (if you have cloned the repository the connector will be present in the directory otherwise [(See File)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/main/Connectors/MQTTConnector/mqtt_connect.json). Now you need to submit the JSON configuration file to the worker node using this command:
 
 ```bash
 curl -s -X POST -H 'Content-Type: application/json' http://localhost:8083/connectors -d @/home/mqtt_connect.json
@@ -543,10 +521,10 @@ Download source package from:
 Now open the file and **copy** the **.jar** file from the **/lib folder** and move it inside the folder of the virtual machine `/.../kafka/plugins/mongodb-connector` using a file manager ssh(es. CyberDuck).
 
 To run the connector, it is necessary to define three different configurations as JSON files to submit to the worker connector. 
-- One configuration is dedicated to the first approach solution [(See File)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/main/MongoDBConnectors/FirstApproach/mongodb_connect.json)
-- The second approach solution needs two different configurations to run properly [(See files)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/tree/main/MongoDBConnectors/SecondApproach)
+- One configuration is dedicated to the first approach solution [(See File)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/blob/main/MongoDBConnectors/FirstApproach/mongodb_connect.json). This connector allow to consume the original messages streamed by kafka and store them into a single collection called "iotsimulator"
+- The second approach needs two different configurations to run properly [(See files)](https://github.com/TBDMProject/SQL-PRESTO-TECH_1/tree/main/MongoDBConnectors/SecondApproach). In this case the connectors will read messages processed by the Kafka Stream App into two different topics. The mongodb1-connector will read messages from the "mqtt.main" topic and will store them into a collection called "general", while the mongodb2-connector will read messages under the topic "mqtt.measures" and store them inside the "measures" collection.
 
-Then for each configuration submit to the worker:
+In order to run these connectors submit to the worker for each configuration:
 
 ```bash
 curl -s -X POST -H 'Content-Type: application/json' http://localhost:8083/connectors -d @/home/your_configuration_name.json
