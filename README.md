@@ -86,6 +86,7 @@ The Jupyter Notebook App is a server-client application that allows editing and 
 * `Docker`
 * `Python 3`
 * `git clone https://github.com/massimocallisto/iot-simulator.git`
+* `git clone https://github.com/TBDMProject/SQL-PRESTO-TECH_1.git`
 
 ## Installation and Configuration
 
