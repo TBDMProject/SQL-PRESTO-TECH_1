@@ -9,12 +9,14 @@ This project was developed as an assignment for the examination of **Big Data Ma
 1. [Installation & Configuration](#installation-and-configuration)  
     1. [Kafka](#kafka)
     1. [MQTT Dumper](#mqtt-dumper)
+    1. [Kakfa Stream](#kafkastream-1)
     1. [MongoDB](#mongodb-1)
     1. [MongoDB Sink Connector](#mongodb-sink-connector)
     1. [Presto](#presto)
 1. [Usage](#usage)  
     1. [IoT Simulator](#iot-simulator-1)
     1. [MQTT Dumper](#mqtt-dumper-1)
+    1. [Kafka Stream](#kafkastream-2)
     1. [Presto](#presto-1)
     1. [Jupyter Connection](#jupyter-1)
 1. [Results](#results)  
@@ -399,6 +401,28 @@ $KAFKA_HOME/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --to
 ```
 <p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
 
+<h3 id="kafkastream-1">Kafka Stream</h3>
+
+The objetive of having a kafka stream job inside this project is referred to the <b>second approach</b>. Infact with this kafka stream app we are able to flatten nested object inside streamed messages and direct them into two topics. This programm works like this:
+ 1. Each message is splitted in two part:
+- The first one containing the entire message excluded by the measures
+- The second one containing the measures flattened without having nested objects like in the first apporach. Also in each measure is added   a 'uuid' field for having a reference to the 'parent' message.
+ 2. Addressing messages in two topics:
+- The first processed part is directed inside a topic called "mqtt.main"
+- The second processed part is directed in another topic called "mqtt.measures"
+
+**Setup Kafka Stream Project**
+
+In order to perform this procedure described above it is necessary to setup the project. As mentioned in the prerequisites is necessary to clone this repository. After this a folder called "kafka-stream" will appear on the computer. It is the maven project that contains the kafka stream app. As maven project, before running it is important to buil it, so move inside the folder where resides the file "pom.xml" and execute the following command:
+
+```bash
+mvn clean package
+```
+
+if the build stage is succesful, it is ready to run, see how in the <a href="#kafkastream-2">usage section</a>
+
+<p align="right">(<a href="#table-of-contents">back to top ⬆️</a>)</p>
+
 <h3 id="mongodb-1">MongoDB</h3>
 
 **Step 1 — Installing MongoDB**
@@ -698,6 +722,9 @@ Then start a standalone connector that takes in input a distributed connector th
 ```bash
 $KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.properties
 ```  
+
+<h3 id="kafkastream-2">Kafka Stream</h3>
+
 
 <h3 id="presto-1">Presto</h3>
 The installation directory contains the launcher script in `bin/launcher`. Presto can be started as a daemon by running the following:
