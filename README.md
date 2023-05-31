@@ -724,7 +724,23 @@ $KAFKA_HOME/bin/connect-distributed.sh $KAFKA_HOME/config/connect-distributed.pr
 ```  
 
 <h3 id="kafkastream-2">Kafka Stream</h3>
+Final step to perform the second approach is to run the Kafka Stream app. To use it, after following the kafka stream part in the installation section, is needed to move inside the folder that contains the "pom.xml" and ,if you already have the Kafka broker up and running at localhost:9092, you can run this code on the command line, using Maven:
 
+```bash
+mvn exec:java -Dexec.mainClass=it.unicam.tbdm.kafka.KafkaStreamApp
+```  
+
+If no exception are launched the kafka stream app start to work properly. In order to perform an addition check to the correct behaviour of the app is possible to run a consumer on a topic created by kafka stream app using one of these commands:
+
+```bash
+~/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mqtt.measures
+``` 
+or
+
+```bash
+~/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic mqtt.main
+``` 
+At this point the results of the app are visible through the visualization of the messages that pass through these topics.
 
 <h3 id="presto-1">Presto</h3>
 The installation directory contains the launcher script in `bin/launcher`. Presto can be started as a daemon by running the following:
